@@ -1,0 +1,14 @@
+{
+  "name": "opencircuits-ee",
+  "description": "An open source circuit designer for electrical engineers",
+  "author": "Leon Montealegre",
+  "version": "1.0.0",
+  "license": "BSD-3-Clause",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/OpenCircuits/EE.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+}
