@@ -1,3 +1,5 @@
+import {CreateWire} from "../utils/ComponentUtils";
+
 import {EEObject} from "./eeobjects/EEObject";
 import {EEComponent} from "./eeobjects/EEComponent";
 import {EEWire} from "./eeobjects/EEWire";
@@ -51,9 +53,7 @@ export class EECircuitDesigner {
 	}
 
 	public createWire(p1: OutputPort, p2: InputPort): EEWire {
-        const wire = new EEWire(p1, p2);
-        p1.connect(wire);
-        p2.setInput(wire);
+        const wire = CreateWire(p1, p2);
 		this.wires.push(wire);
 		wire.setDesigner(this);
 		return wire;
