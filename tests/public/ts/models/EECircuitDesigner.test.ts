@@ -15,7 +15,6 @@ describe("CircuitDesigner", () => {
     describe("Example Circuits", () => {
         it ("Basic Battery + Resistor in Series", () => {
             const designer = new EECircuitDesigner();
-            //example comment
             const battery  = new Battery(10);
             const resistor = new Resistor(2);
 
@@ -82,6 +81,29 @@ describe("CircuitDesigner", () => {
             expect(wire2.getResistance()).toBe(0);
             expect(resistor2.getResistance()).toBe(3);
             expect(wire3.getResistance()).toBe(0);
+        });
+        it ("No Resistor Circuit", () => {
+            const designer = new EECircuitDesigner();
+
+            const battery = new Battery(10);
+
+            designer.addObjects([battery]);
+            //Decide whether or not to allow battery connected to itself
+            const wire1 =  designer.connect(battery, battery);
+
+            designer.simulate();
+
+            // Current
+            expect(battery.getCurrent()).toBe(Infinity);
+            expect(wire1.getCurrent()).toBe(Infinity);
+
+            //Voltage
+            expect(battery.getVoltage()).toBe(NaN);
+            expect(wire1.getVoltage()).toBe(NaN);
+
+            //Resistance
+            expect(battery.getResistance()).toBe(0);
+            expect(wire1.getResistance()).toBe(0);
         });
     });
 });
