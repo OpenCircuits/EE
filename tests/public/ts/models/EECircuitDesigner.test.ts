@@ -15,7 +15,7 @@ describe("CircuitDesigner", () => {
     describe("Example Circuits", () => {
         it ("Basic Battery + Resistor in Series", () => {
             const designer = new EECircuitDesigner();
-
+            //example comment
             const battery  = new Battery(10);
             const resistor = new Resistor(2);
 
