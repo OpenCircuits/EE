@@ -5,7 +5,7 @@ import {Battery} from "../../../../site/public/ts/models/eeobjects/Battery";
 describe("Battery", () => {
     describe("New Battery, Default", () => {
         const battery = new Battery();
-
+        //Default to 1 Volt
         expect(battery.getVoltage()).toBe(1);
     });
     describe("Example Batteries", () => {
@@ -14,12 +14,12 @@ describe("Battery", () => {
             expect(battery.getVoltage()).toBe(2);
         });
         it ("Negative Voltage", () => {
-            //Should default to 1k Ohms
+            //Should default to 1 Volt
             const battery = new Battery(-1);
             expect(battery.getVoltage()).toBe(1);
         });
         it ("Zero Voltage", () => {
-            //Should default to 1k Ohms
+            //Should default to 1 Volt
             const battery = new Battery(0);
             expect(battery.getVoltage()).toBe(1);
         });
