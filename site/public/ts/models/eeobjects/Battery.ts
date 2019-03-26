@@ -7,8 +7,11 @@ export class Battery extends EEComponent {
 
     public constructor(voltage: number = 1) {
         super(new ClampedValue(1), new ClampedValue(1), V(50, 50));
-
-        this.voltage = voltage;
+        if (number > 0){
+            this.voltage = voltage;
+        } else {
+            this.voltage = 1;
+        }
     }
 
     public getDisplayName(): string {
