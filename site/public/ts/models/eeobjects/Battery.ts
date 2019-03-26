@@ -7,7 +7,7 @@ export class Battery extends EEComponent {
 
     public constructor(voltage: number = 1) {
         super(new ClampedValue(1), new ClampedValue(1), V(50, 50));
-        if (number > 0){
+        if (voltage > 0){
             this.voltage = voltage;
         } else {
             this.voltage = 1;
