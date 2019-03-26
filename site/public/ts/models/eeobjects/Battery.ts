@@ -1,4 +1,4 @@
-import {Vector,V}     from "../../utils/math/Vector";
+import {V}     from "../../utils/math/Vector";
 import {ClampedValue} from "../../utils/ClampedValue";
 
 import {EEComponent} from "./EEComponent";
