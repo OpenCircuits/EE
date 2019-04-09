@@ -11,7 +11,7 @@ describe("Current Source", () => {
     describe("Example Current Sources", () => {
         it ("Positive Current", () => {
             const csource = new CurrentSource(.002);
-            expect(csource.getCurrent()).toBe(2);
+            expect(csource.getCurrent()).toBe(.002);
         });
         it ("Negative Current", () => {
             //Should default to .005 Amps
