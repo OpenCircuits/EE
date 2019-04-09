@@ -9,6 +9,7 @@ export abstract class EEObject {
     protected voltage: number;
     protected current: number;
     protected resistance: number;
+    protected power: number;
 
     constructor() {
         this.name = new Name(this.getDisplayName());
@@ -16,6 +17,7 @@ export abstract class EEObject {
         this.voltage = 0;
         this.current = 0;
         this.resistance = 0;
+        this.power = 0;
     }
 
     public setDesigner(designer?: EECircuitDesigner): void {
@@ -38,6 +40,10 @@ export abstract class EEObject {
         this.resistance = resistance;
     }
 
+    public setPower(power: number): void {
+        this.power = power;
+    }
+
     public getDesigner(): EECircuitDesigner {
         return this.designer;
     }
@@ -56,6 +62,10 @@ export abstract class EEObject {
 
     public getResistance(): number {
         return this.resistance;
+    }
+
+    public getPower(): number {
+        return this.power;
     }
 
     public copy(): EEObject {

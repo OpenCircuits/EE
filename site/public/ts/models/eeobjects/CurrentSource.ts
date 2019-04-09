@@ -3,20 +3,20 @@ import {ClampedValue} from "../../utils/ClampedValue";
 
 import {EEComponent} from "./EEComponent";
 
-export class Battery extends EEComponent {
+export class CurrentSource extends EEComponent {
 
-    public constructor(voltage: number = 5) {
+    public constructor(current: number = .005) {
         super(new ClampedValue(1), new ClampedValue(1), V(50, 50));
-        //ensure no negative/zero voltage!!!
-        if (voltage > 0){
-            this.voltage = voltage;
+        //ensure no negative/zero current!!!
+        if (current > 0){
+            this.current = current;
         } else {
-            this.voltage = 5;
+            this.current = .005;
         }
     }
 
     public getDisplayName(): string {
-        return "Battery";
+        return "CurrentSource";
     }
 
 }
