@@ -118,7 +118,7 @@ describe("CircuitDesigner", () => {
             //expect(wire1.getResistance()).toBe(0);
 
             //Power
-            expect(battery.getPower()).toBe(NaN);
+            expect(battery.getPower()).toBe(Infinity);
         });
     });
 });
