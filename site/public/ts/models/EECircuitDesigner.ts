@@ -46,6 +46,9 @@ export class EECircuitDesigner {
 			}
 		}
 		totalCurrent = totalVoltage / totalResistance
+		for (let wire of this.wires){
+			wire.setCurrent(totalCurrent);
+		}
 		for (let obj of this.objects){
 			obj.setCurrent(totalCurrent);
 			if (obj.getDisplayName() == "Resistor"){
