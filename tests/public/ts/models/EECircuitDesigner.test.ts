@@ -107,7 +107,7 @@ describe("CircuitDesigner", () => {
 
             // Current
             expect(battery.getCurrent()).toBe(Infinity);
-            expect(wire1.getCurrent()).toBe(Infinity);
+            expect(wire1.getCurrent()).toBe(0);
 
             //Voltage
             expect(battery.getVoltage()).toBe(NaN);
