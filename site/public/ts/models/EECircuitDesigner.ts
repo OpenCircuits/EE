@@ -35,8 +35,24 @@ export class EECircuitDesigner {
 		this.updateCallback();
 	}
 
-    public simulate(): void {
-
+    public simulate(): void { //ASSUMING SERIES, THIS IS BAD IF NOT
+		let totalResistance = 0;
+		let totalVoltage = 0;
+		let totalCurrent = 0;
+		for (let obj of this.objects) {
+			totalResistance += obj.getResistance();
+			if (obj.getDisplayName() == "Battery") {
+				totalVoltage = obj.getVoltage();
+			}
+		}
+		totalCurrent = totalVoltage / totalResistance
+		for (let obj of this.objects){
+			obj.setCurrent(totalCurrent);
+			if (obj.getDisplayName() == "Resistor"){
+				obj.setVoltage(totalCurrent * obj.getResistance());
+			}
+			obj.setPower(totalCurrent * obj.getVoltage());
+		}
     }
 
 	public addObjects(objects: Array<EEComponent>): void {
