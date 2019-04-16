@@ -112,7 +112,7 @@ export class Matrix2x3 {
     public equals(other: Matrix2x3): boolean {
         if (other == null)
             return false;
-        
+
         for (let i = 0; i < 2*3; i++) {
             if (this.mat[i] !== other.mat[i])
                 return false;
