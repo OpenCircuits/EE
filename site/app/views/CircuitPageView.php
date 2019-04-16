@@ -142,22 +142,22 @@ HTML;
                 </nav>
                 <div id="itemnav-open-tab" class="tab"></div>
 
+                <div id="simulate-button" class="simulate"></div>
+
                 <canvas id="canvas" class="canvas"></canvas>
 
                 <div id="popup" class="popup" tabindex="-1" style="visibility: hidden;">
                     <input id="popup-name" type="text" value="Name :" alt="Name of object(s)">
                     <hr/>
-                    <div id ="popup-voltage" class="popup__property">
-                        <label for="popup-voltage-input">Voltage: </label>
-                        <span><input id="popup-voltage-input" type="number" value="0" min="0" alt="Voltage of object(s)" /></span>
-                    </div>
-                    <div id ="popup-current" class="popup__property">
-                        <label for="popup-current-input">Current: </label>
-                        <span><input id="popup-current-input" type="number" value="0" min="0" alt="Current of object(s)" /></span>
-                    </div>
-                    <div id ="popup-resistance" class="popup__property">
+                    <div id="popup-properties" class="popup__property">
+                        <label for="popup-voltage">Voltage: </label>
+                        <span><input id="popup-voltage" type="number" value="0" min="0" alt="Voltage of object(s)" /></span>
+
+                        <label for="popup-current">Current: </label>
+                        <span><input id="popup-current" type="number" value="0" min="0" alt="Current of object(s)" /></span>
+
                         <label for="popup-resistance">Resistance: </label>
-                        <span><input id="popup-resistance-input" type="number" value="0" min="0" alt="Resistance of object(s)" /></span>
+                        <span><input id="popup-resistance" type="number" value="0" min="0" alt="Resistance of object(s)" /></span>
                     </div>
                     <hr/>
                     <div id="popup-pos-text" style="display: none;">Position

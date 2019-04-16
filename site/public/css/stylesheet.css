@@ -411,6 +411,27 @@ main {
     content: "×";
 }
 
+
+.simulate {
+    position: fixed;
+    z-index: 4;
+    width: 18px;
+    top: 60px;
+    right: 0px;
+    color: #00cc00;
+    background-color: rgba(200, 200, 200, 1.0);
+    border: 5px solid #999;
+    border-bottom-left-radius: 15px;
+    padding: 0px 8px 2px 8px;
+    font-size: 2em;
+    cursor: pointer;
+    transition: 0.5s;
+}
+.simulate:after {
+    content: ">";
+}
+
+
 .canvas {
     position: absolute;
     width: 100%;
