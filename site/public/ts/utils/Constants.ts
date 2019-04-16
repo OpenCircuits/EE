@@ -25,6 +25,8 @@ export const WIRE_DIST_ITERATIONS = 10;
 export const WIRE_NEWTON_ITERATIONS = 5;
 export const WIRE_SNAP_THRESHOLD    = 10;
 
+export const GATE_NOT_CIRCLE_RADIUS = 5;
+
 export const ROTATION_CIRCLE_RADIUS = 75;
 export const ROTATION_CIRCLE_THICKNESS = 5;
 export const ROTATION_CIRCLE_THRESHOLD = 5;
@@ -43,6 +45,7 @@ export const SHIFT_KEY  = 16;
 export const CONTROL_KEY = 17;
 export const OPTION_KEY = 18;
 export const ESC_KEY    = 27;
+export const SPACEBAR_KEY = 32;
 export const DELETE_KEY = 46;
 export const A_KEY = 65;
 export const C_KEY = 67;
