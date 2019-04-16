@@ -27,6 +27,8 @@ export const MainDesignerController = (function() {
     let toolManager: ToolManager;
     let renderQueue: RenderQueue;
 
+    const playButton = document.getElementById("simulate-button");
+
     const resize = function() {
         view.resize();
 
@@ -104,6 +106,11 @@ export const MainDesignerController = (function() {
                             toolManager.getSelectionTool().getSelections(),
                             toolManager.getSelectionTool().getPortSelections(),
                             toolManager));
+
+            playButton.onclick = () => {
+                designer.simulate();
+                MainDesignerController.Render();
+            }
 
             // input
             input = new Input(view.getCanvas());
