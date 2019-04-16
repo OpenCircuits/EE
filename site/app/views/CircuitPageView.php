@@ -144,16 +144,21 @@ HTML;
 
                 <canvas id="canvas" class="canvas"></canvas>
 
-                <div id="ic-designer" style="visibility: hidden;">
-                    <canvas id="ic-canvas" class="icdesigner"></canvas>
-                    <div class="icbuttons">
-                        <button id="ic-confirmbutton" class="icbuttons__button" onclick="icdesigner.confirm();" alt="Submit IC">Confirm</button>
-                        <button id="ic-cancelbutton"  class="icbuttons__button" onclick="icdesigner.cancel();"  alt="Cancel IC">Cancel</button>
-                    </div>
-                </div>
-
                 <div id="popup" class="popup" tabindex="-1" style="visibility: hidden;">
                     <input id="popup-name" type="text" value="Name :" alt="Name of object(s)">
+                    <hr/>
+                    <div id ="popup-voltage" class="popup__property">
+                        <label for="popup-voltage-input">Voltage: </label>
+                        <span><input id="popup-voltage-input" type="number" value="0" min="0" alt="Voltage of object(s)" /></span>
+                    </div>
+                    <div id ="popup-current" class="popup__property">
+                        <label for="popup-current-input">Current: </label>
+                        <span><input id="popup-current-input" type="number" value="0" min="0" alt="Current of object(s)" /></span>
+                    </div>
+                    <div id ="popup-resistance" class="popup__property">
+                        <label for="popup-resistance">Resistance: </label>
+                        <span><input id="popup-resistance-input" type="number" value="0" min="0" alt="Resistance of object(s)" /></span>
+                    </div>
                     <hr/>
                     <div id="popup-pos-text" style="display: none;">Position
                         <label id="popup-position-label" class="popup__label" unselectable disabled>
@@ -161,28 +166,7 @@ HTML;
                             <input id="popup-position-y" type="number" value="0" min="-10000" max="10000" step="0.5" alt="Y-Position of object(s)" />
                         </label>
                     </div>
-                    <div id="popup-input-count-text" style="display: none;">Input Count
-                        <label id="popup-input-count-label" class="popup__label" unselectable disabled>
-                            <input id="popup-input-count" type="number" value="2" min="2" max="8" step="1" alt="Number of inputs object(s) have" />
-                        </label>
-                    </div>
-                    <div id="popup-output-count-text" style="display: none;">Output Count
-                        <label id="popup-output-count-label" class="popup__label" unselectable disabled>
-                            <input id="popup-output-count" type="number" value="2" min="2" max="8" step="1" alt="Number of outputs object(s) have" />
-                        </label>
-                    </div>
-                    <div id="popup-color-text" style="display: none;">Color
-                        <label id="popup-color-label" class="popup__label" unselectable disabled>
-                            <input id="popup-color-picker" type="color" value="#ffffff" alt="Color of object(s)" />
-                        </label>
-                    </div>
-                    <div id="popup-clock-delay-text" style="display: none;">Clock Delay
-                        <label id="popup-clock-delay-label" class="popup__label" unselectable disabled>
-                            <input id="popup-clock-delay" type="number" value="1000" min="200" max="10000" step="100" alt="Clock delay in milliseconds" />
-                        </label>
-                    </div>
 
-                    <button id="popup-ic-button" type="button" alt="Create">Create IC</button>
                     <button id="popup-bus-button" type="button" alt="Create a bus between selected ports">Bus</button>
                 </div>
             </main>

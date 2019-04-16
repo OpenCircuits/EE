@@ -422,66 +422,12 @@ main {
 
 /*
 
-IC DESIGNER
-
-*/
-.icdesigner {
-    position: fixed;
-    width: 84vw;
-    height: 76vh;
-    left: 0;
-    top: 0;
-    z-index: 1;
-    margin: 14vh 8vw 8vh 8vw;
-    font-size: 16;
-    border: 1px solid #444;
-    border-radius: 3px;
-    color: #888;
-    background-color: rgba(255, 255, 255, 0.9);
-}
-.icbuttons {
-    position: absolute;
-    z-index: 2;
-    top: 90vh;
-    width: 100vw;
-}
-.icbuttons__button {
-    position: absolute;
-    z-index: 2;
-    width: 30vw;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    outline: none;
-}
-#ic-confirmbutton {
-    left: 8vw;
-    background-color: #4CAF50;
-}
-#ic-confirmbutton:active {
-    background-color: #3e8e41;
-}
-#ic-cancelbutton {
-    right: calc(8vw - 2px);
-    background-color: #F44336;
-}
-#ic-cancelbutton:active {
-    background-color: #BA000D;
-}
-
-
-/*
-
 POPUP
 
 */
 .popup {
     position: fixed;
-    width: 100px;
+    width: 150px;
     left: 0px;
     top: 0px;
     padding: 1em;
@@ -508,6 +454,17 @@ POPUP
 .popup input[type="text"], input[type="color"] {
     border: 0;
     background-color: rgba(255, 255, 255, 0);
+}
+.popup__property label {
+    float: left;
+    margin-right: 2%;
+}
+.popup__property span {
+    display: block;
+    overflow: hidden;
+}
+.popup__property input {
+    width: calc(100% - 8px);
 }
 
 .popup input#popup-position-x, input#popup-position-y {
