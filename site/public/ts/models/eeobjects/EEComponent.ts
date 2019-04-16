@@ -1,14 +1,20 @@
+import {DEFAULT_BORDER_WIDTH,
+        IO_PORT_RADIUS,
+        IO_PORT_BORDER_WIDTH} from "../../utils/Constants";
+
 import {Vector,V}     from "../../utils/math/Vector";
 import {Transform}    from "../../utils/math/Transform";
+import {RectContains} from "../../utils/math/MathUtils";
 import {ClampedValue} from "../../utils/ClampedValue";
+import {XMLNode}      from "../../utils/io/xml/XMLNode";
 
-import {EEObject} from "./EEObject";
+import {CullableObject}   from "./CullableObject";
 import {EEWire}       from "./EEWire";
 import {EEPort}       from "./EEPort";
 import {InputPort}  from "./InputPort";
 import {OutputPort} from "./OutputPort";
 
-export abstract class EEComponent extends EEObject {
+export abstract class EEComponent extends CullableObject {
     protected inputs: Array<InputPort>;
     protected outputs: Array<OutputPort>;
 
@@ -48,10 +54,6 @@ export abstract class EEComponent extends EEObject {
 
             // Set y positions
             let port = arr[i];
-            if (this.getDisplayName() == "SR Flip Flop" ||
-                this.getDisplayName() == "JK Flip Flop") {
-                l *= 3/4;
-            }
             port.setOriginPos(V(port.getOriginPos().x, l));
             port.setTargetPos(V(port.getTargetPos().x, l));
         }
@@ -133,17 +135,17 @@ export abstract class EEComponent extends EEObject {
         return false;
     }
 
-    // /**
-    //  * Determines whether or not a point is within
-    //  *  this component's "selectable" bounds
-    //  * @param  v The point
-    //  * @return   True if the point is within this component,
-    //  *           false otherwise
-    //  */
-    // public isWithinSelectBounds(v: Vector): boolean {
-    //     return RectContains(this.getTransform(), v) &&
-    //            !this.isWithinPressBounds(v);
-    // }
+    /**
+     * Determines whether or not a point is within
+     *  this component's "selectable" bounds
+     * @param  v The point
+     * @return   True if the point is within this component,
+     *           false otherwise
+     */
+    public isWithinSelectBounds(v: Vector): boolean {
+        return RectContains(this.getTransform(), v) &&
+               !this.isWithinPressBounds(v);
+    }
 
     public getInputPort(i: number): InputPort {
         return this.inputs[i];
@@ -209,41 +211,41 @@ export abstract class EEComponent extends EEObject {
         return this.transform;
     }
 
-    // public getMinPos(): Vector {
-    //     let min = V(Infinity, Infinity);
-    //     // Find minimum pos from corners of transform
-    //     this.transform.getCorners().forEach((v) => {
-    //         v = v.sub(V(DEFAULT_BORDER_WIDTH, DEFAULT_BORDER_WIDTH));
-    //         min = Vector.min(min, v);
-    //     });
-    //
-    //     // Find minimum pos from ports
-    //     this.getPorts().forEach((p) => {
-    //         let v = p.getWorldTargetPos();
-    //         v = v.sub(V(IO_PORT_RADIUS+IO_PORT_BORDER_WIDTH, IO_PORT_RADIUS+IO_PORT_BORDER_WIDTH));
-    //         min = Vector.min(min, v);
-    //     });
-    //
-    //     return min;
-    // }
-    //
-    // public getMaxPos(): Vector {
-    //     let max = V(-Infinity, -Infinity);
-    //     // Find maximum pos from corners of transform
-    //     this.transform.getCorners().forEach((v) => {
-    //         v = v.add(V(DEFAULT_BORDER_WIDTH, DEFAULT_BORDER_WIDTH));
-    //         max = Vector.max(max, v);
-    //     });
-    //
-    //     // Find maximum pos from ports
-    //     this.getPorts().forEach((p) => {
-    //         let v = p.getWorldTargetPos();
-    //         v = v.add(V(IO_PORT_RADIUS+IO_PORT_BORDER_WIDTH, IO_PORT_RADIUS+IO_PORT_BORDER_WIDTH));
-    //         max = Vector.max(max, v);
-    //     });
-    //
-    //     return max;
-    // }
+    public getMinPos(): Vector {
+        let min = V(Infinity, Infinity);
+        // Find minimum pos from corners of transform
+        this.transform.getCorners().forEach((v) => {
+            v = v.sub(V(DEFAULT_BORDER_WIDTH, DEFAULT_BORDER_WIDTH));
+            min = Vector.min(min, v);
+        });
+
+        // Find minimum pos from ports
+        this.getPorts().forEach((p) => {
+            let v = p.getWorldTargetPos();
+            v = v.sub(V(IO_PORT_RADIUS+IO_PORT_BORDER_WIDTH, IO_PORT_RADIUS+IO_PORT_BORDER_WIDTH));
+            min = Vector.min(min, v);
+        });
+
+        return min;
+    }
+
+    public getMaxPos(): Vector {
+        let max = V(-Infinity, -Infinity);
+        // Find maximum pos from corners of transform
+        this.transform.getCorners().forEach((v) => {
+            v = v.add(V(DEFAULT_BORDER_WIDTH, DEFAULT_BORDER_WIDTH));
+            max = Vector.max(max, v);
+        });
+
+        // Find maximum pos from ports
+        this.getPorts().forEach((p) => {
+            let v = p.getWorldTargetPos();
+            v = v.add(V(IO_PORT_RADIUS+IO_PORT_BORDER_WIDTH, IO_PORT_RADIUS+IO_PORT_BORDER_WIDTH));
+            max = Vector.max(max, v);
+        });
+
+        return max;
+    }
 
     public copy(): EEComponent {
         let copy = <EEComponent>super.copy();
@@ -264,6 +266,22 @@ export abstract class EEComponent extends EEObject {
         }
 
         return copy;
+    }
+
+    public save(node: XMLNode): void {
+        super.save(node);
+        node.addVectorAttribute("", this.getPos());
+        node.addAttribute("angle", this.getAngle());
+    }
+
+    public load(node: XMLNode): void {
+        super.load(node);
+        this.setPos(node.getVectorAttribute(""));
+        this.setAngle(node.getFloatAttribute("angle"));
+    }
+
+	public getImageName(): string {
+        return undefined;
     }
 
 }

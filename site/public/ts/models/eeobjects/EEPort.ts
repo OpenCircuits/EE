@@ -54,14 +54,14 @@ export abstract class EEPort {
         return this.target.copy();
     }
 
-    // public getWorldDir(): Vector {
-    //     return this.parent.transformPoint(this.dir).sub(this.parent.getPos()).normalize();
-    // }
-    // public getWorldOriginPos(): Vector {
-    //     return this.parent.transformPoint(this.origin);
-    // }
-    // public getWorldTargetPos(): Vector {
-    //     return this.parent.transformPoint(this.target);
-    // }
+    public getWorldDir(): Vector {
+        return this.parent.transformPoint(this.dir).sub(this.parent.getPos()).normalize();
+    }
+    public getWorldOriginPos(): Vector {
+        return this.parent.transformPoint(this.origin);
+    }
+    public getWorldTargetPos(): Vector {
+        return this.parent.transformPoint(this.target);
+    }
 
 }

@@ -1,4 +1,10 @@
-import {CreateWire} from "../utils/ComponentUtils";
+import {XMLable} from "../utils/io/xml/XMLable";
+import {XMLNode} from "../utils/io/xml/XMLNode";
+
+import {SeparatedComponentCollection,
+		CreateWire,
+		SaveGroup,
+		LoadGroup} from "../utils/ComponentUtils";
 
 import {EEObject} from "./eeobjects/EEObject";
 import {EEComponent} from "./eeobjects/EEComponent";
@@ -58,6 +64,16 @@ export class EECircuitDesigner {
 		}
     }
 
+	public addGroup(group: SeparatedComponentCollection): void {
+		for (let a of group.getAllComponents())
+			this.addObject(a)
+
+		for (let b of group.wires) {
+			this.wires.push(b);
+			b.setDesigner(this);
+		}
+	}
+
 	public addObjects(objects: Array<EEComponent>): void {
 		for (let i = 0; i < objects.length; i++)
 			this.addObject(objects[i]);
@@ -113,12 +129,35 @@ export class EECircuitDesigner {
 		wire.setDesigner(undefined);
 	}
 
+	public save(node: XMLNode): void {
+		SaveGroup(node, this.objects, this.wires);
+	}
+
+
+	public load(node: XMLNode): void {
+		let group = LoadGroup(node);
+
+		// Add all objects/wires
+		group.getAllComponents().forEach((c) => this.addObject(c));
+		group.wires.forEach((w) => {
+			this.wires.push(w);
+			w.setDesigner(this);
+		});
+
+		// Update since the circuit has changed
+		this.updateCallback();
+	}
+
 	public getObjects(): Array<EEComponent> {
 		return this.objects.slice(); // Shallow copy array
 	}
 
 	public getWires(): Array<EEWire> {
 		return this.wires.slice(); // Shallow copy array
+	}
+
+	public getXMLName(): string {
+		return "circuit";
 	}
 
 }

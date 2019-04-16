@@ -1,8 +1,10 @@
+import {XMLNode} from "../../utils/io/xml/XMLNode";
+import {XMLable} from "../../utils/io/xml/XMLable";
 import {Name} from "../../utils/Name";
 
 import {EECircuitDesigner} from "../EECircuitDesigner";
 
-export abstract class EEObject {
+export abstract class EEObject implements XMLable {
     protected designer?: EECircuitDesigner;
     protected name: Name;
 
@@ -74,6 +76,14 @@ export abstract class EEObject {
         return copy;
     }
 
+    public save(node: XMLNode): void {
+        node.addAttribute("name", this.name.getName());
+    }
+    public load(node: XMLNode): void {
+        this.name = new Name(node.getAttribute("name"));
+    }
+
     public abstract getDisplayName(): string;
+    public abstract getXMLName(): string;
 
 }
