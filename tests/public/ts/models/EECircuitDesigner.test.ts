@@ -5,7 +5,7 @@ import {EECircuitDesigner} from "../../../../site/public/ts/models/EECircuitDesi
 import {Battery} from "../../../../site/public/ts/models/eeobjects/Battery";
 import {Resistor} from "../../../../site/public/ts/models/eeobjects/Resistor";
 
-describe("CircuitDesigner", () => {
+describe("EECircuitDesigner", () => {
     describe("Empty Circuit", () => {
         const designer = new EECircuitDesigner();
 
