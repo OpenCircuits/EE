@@ -7,6 +7,7 @@ import {Camera} from "../utils/Camera";
 
 import {SelectionPopupModule} from "../utils/selectionpopup/SelectionPopupModule";
 import {TitlePopupModule} from "../utils/selectionpopup/TitlePopupModule";
+import {PropertiesPopupModule} from "../utils/selectionpopup/PropertiesPopupModule";
 import {PositionPopupModule} from "../utils/selectionpopup/PositionPopupModule";
 import {BusButtonPopupModule} from "../utils/selectionpopup/BusButtonPopupModule";
 
@@ -37,6 +38,7 @@ export const SelectionPopupController = (function() {
 
             modules = new Array<SelectionPopupModule>(
                 new TitlePopupModule(div),
+                new PropertiesPopupModule(div),
                 new PositionPopupModule(div),
                 new BusButtonPopupModule(div)
             );
