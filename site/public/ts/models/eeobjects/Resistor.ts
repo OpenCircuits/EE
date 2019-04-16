@@ -5,7 +5,7 @@ import {EEComponent} from "./EEComponent";
 
 export class Resistor extends EEComponent {
 
-    public constructor(resistance: number = 1000) { //make sure resistance is > 0
+    public constructor(resistance: number = 5) { //make sure resistance is > 0
         super(new ClampedValue(1), new ClampedValue(1), V(50, 30));
 
         if (resistance <= 0){

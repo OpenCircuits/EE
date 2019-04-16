@@ -73,14 +73,23 @@ export abstract class EEObject implements XMLable {
     public copy(): EEObject {
         let copy: EEObject = new (<any> this.constructor)();
         copy.name = new Name(this.name.getName());
+        copy.voltage    = this.voltage;
+        copy.current    = this.current;
+        copy.resistance = this.resistance;
         return copy;
     }
 
     public save(node: XMLNode): void {
         node.addAttribute("name", this.name.getName());
+        node.addAttribute("voltage",    this.voltage);
+        node.addAttribute("current",    this.current);
+        node.addAttribute("resistance", this.resistance);
     }
     public load(node: XMLNode): void {
         this.name = new Name(node.getAttribute("name"));
+        this.voltage    = node.getFloatAttribute("voltage");
+        this.current    = node.getFloatAttribute("current");
+        this.resistance = node.getFloatAttribute("resistance");
     }
 
     public abstract getDisplayName(): string;
