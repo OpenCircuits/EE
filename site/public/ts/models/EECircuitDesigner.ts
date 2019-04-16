@@ -10,6 +10,8 @@ import {EEObject} from "./eeobjects/EEObject";
 import {EEComponent} from "./eeobjects/EEComponent";
 import {EEWire} from "./eeobjects/EEWire";
 
+import {Battery} from "./eeobjects/Battery";
+
 import {InputPort}  from "./eeobjects/InputPort";
 import {OutputPort} from "./eeobjects/OutputPort";
 
@@ -42,25 +44,51 @@ export class EECircuitDesigner {
 	}
 
     public simulate(): void { //ASSUMING SERIES, THIS IS BAD IF NOT
+		const batteries = this.objects.filter(c => c instanceof Battery);
+		if (batteries.length > 1)
+			throw new Error("Only 1 battery allowed for simulation currently!");
+
+		const battery = batteries[0];
+
+		const totalVoltage = battery.getVoltage();
+
+		// Calculate total resistance
 		let totalResistance = 0;
-		let totalVoltage = 0;
-		let totalCurrent = 0;
-		for (let obj of this.objects) {
-			totalResistance += obj.getResistance();
-			if (obj.getDisplayName() == "Battery") {
-				totalVoltage = obj.getVoltage();
+		{
+			let obj = battery.getOutputs()[0].getOutput().getParent();
+			while (obj != battery) {
+				totalResistance += obj.getResistance();
+
+				if (obj.getOutputs().length <= 0)
+					throw new Error("Disconnected circuit!");
+				if (obj.getOutputs().length > 1)
+					throw new Error("Circuit is not in series!");
+
+				obj = obj.getOutputs()[0].getOutput().getParent();
 			}
 		}
-		totalCurrent = totalVoltage / totalResistance
-		for (let wire of this.wires){
-			wire.setCurrent(totalCurrent);
-		}
-		for (let obj of this.objects){
-			obj.setCurrent(totalCurrent);
-			if (obj.getDisplayName() == "Resistor"){
-				obj.setVoltage(totalCurrent * obj.getResistance());
+
+		const current = totalVoltage / totalResistance;
+
+		// Set currents
+		this.objects.forEach(c => c.setCurrent(current));
+		this.wires.forEach(w => w.setCurrent(current));
+
+		// Set voltages
+		let voltage = totalVoltage;
+		{
+			battery.getOutputs()[0].setVoltage(voltage);
+			let obj = battery.getOutputs()[0].getOutput().getParent();
+			while (obj != battery) {
+				const voltageDrop = current * obj.getResistance();
+
+				obj.setVoltage(voltageDrop > 0 ? voltageDrop : voltage);
+				voltage -= voltageDrop;
+
+				obj.getOutputs()[0].setVoltage(voltage);
+
+				obj = obj.getOutputs()[0].getOutput().getParent();
 			}
-			obj.setPower(totalCurrent * obj.getVoltage());
 		}
     }
 
