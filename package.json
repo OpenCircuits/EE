@@ -19,6 +19,7 @@
     "webpack-cli": "^3.3.0"
   },
   "scripts": {
+    "build": "webpack --mode=development",
     "test": "jest --runInBand"
   }
 }
