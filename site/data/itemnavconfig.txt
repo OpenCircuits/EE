@@ -1,0 +1,6 @@
+[Sources=sources]
+Battery & voltagesource.svg & battery
+Current Source & currentsource.svg & cursource
+
+[Other=other]
+Resistor & resistor.svg & resistor
